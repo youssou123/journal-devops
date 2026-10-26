@@ -31,3 +31,21 @@ Le volume `pg-learn-data` conserve les données même si le conteneur est suppri
 
 La dernière requête calcule le taux d'échec des déploiements par environnement,
 l'une des quatre métriques DORA.
+
+## Jour 2 : JOIN
+
+| Fichier | Rôle |
+|---|---|
+| `03-join-setup.sql` | Recrée deux tables, `applications` et `deployments`, reliées par une clé étrangère `app_id`. Remplace le modèle du jour 1 |
+| `04-join.sql` | `INNER JOIN`, `LEFT JOIN`, `IS NULL`, `NULLIF` |
+
+Ordre d'exécution : pour rejouer le jour 1, lancer `01` puis `02`. Pour le jour 2, lancer `03` puis `04`.
+
+### Notions apprises
+
+- Une clé étrangère garantit qu'un déploiement pointe vers une application qui existe
+- `INNER JOIN` garde seulement les lignes qui ont une correspondance des deux côtés
+- `LEFT JOIN` garde toutes les lignes de gauche, avec `NULL` à droite s'il n'y a pas de correspondance
+- `COUNT(colonne)` ignore les `NULL`, `COUNT(*)` non
+- `WHERE d.id IS NULL` après un `LEFT JOIN` trouve les lignes sans correspondance
+- `NULLIF(x, 0)` évite l'erreur de division par zéro
