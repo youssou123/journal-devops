@@ -49,3 +49,24 @@ Ordre d'exécution : pour rejouer le jour 1, lancer `01` puis `02`. Pour le jour
 - `COUNT(colonne)` ignore les `NULL`, `COUNT(*)` non
 - `WHERE d.id IS NULL` après un `LEFT JOIN` trouve les lignes sans correspondance
 - `NULLIF(x, 0)` évite l'erreur de division par zéro
+
+## Jour 3 : contraintes, ON DELETE et exercice ARSENAL
+
+| Fichier | Rôle |
+|---|---|
+| `05-contraintes-setup.sql` | Recrée les tables avec contraintes : `NOT NULL`, `UNIQUE`, `DEFAULT`, `CHECK`, `ON DELETE RESTRICT` |
+| `06-exercice-arsenal.sql` | Exercice : rapport par équipe, taux de réussite par personne, table `incidents` |
+
+Ordre d'exécution : pour le jour 3, lancer `05` puis `06`.
+
+Les scripts `01`, `03` et `05` commencent par `DROP TABLE IF EXISTS incidents;` : la table `incidents` dépend de `deployments`, donc sans cette ligne ils échoueraient quand elle existe.
+
+Astuce : `psql -v ON_ERROR_STOP=1` arrête le script à la première erreur au lieu de continuer en silence.
+
+### Notions apprises
+
+- Les contraintes `NOT NULL`, `UNIQUE`, `DEFAULT` et `CHECK` font refuser les données absurdes par la base elle-même
+- `ON DELETE RESTRICT` protège l'historique, `ON DELETE CASCADE` supprime les lignes liées
+- `BEGIN` puis `ROLLBACK` permet de tester une opération destructive sans rien perdre
+- Une séquence `SERIAL` ne revient jamais en arrière : des trous dans les `id` sont normaux
+- `NOT EXISTS` est une alternative à `LEFT JOIN ... IS NULL` pour trouver les lignes sans correspondance
