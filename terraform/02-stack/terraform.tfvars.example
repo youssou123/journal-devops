@@ -1,0 +1,3 @@
+# Copier ce fichier en terraform.tfvars puis remplacer la valeur.
+# terraform.tfvars est ignoré par Git : il ne doit jamais être commité.
+db_password = "remplace-moi-par-un-mot-de-passe-solide"
